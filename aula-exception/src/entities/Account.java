@@ -9,7 +9,7 @@ public class Account implements Serializable {
 	private String holder;
 	private Double balance;
 	private Double withdrawLimit;
-	
+
 	public Account() {
 	}
 
@@ -51,13 +51,23 @@ public class Account implements Serializable {
 	public void setWithdrawLimit(Double withdrawLimit) {
 		this.withdrawLimit = withdrawLimit;
 	}
-	
+
 	public void deposit(Double amount) {
 		balance += amount;
 	}
-	
+
 	public void withdraw(Double amount) {
 		balance -= amount;
+	}
+
+	public String validateWithdraw(double amount) {
+		if (amount > getWithdrawLimit()) {
+			return "Erro de saque: A quantia excede o limite de saque";
+		}
+		if (amount > getBalance()) {
+			return "Erro de saque: Saldo insuficiente";
+		}
+		return null;
 	}
 
 	@Override
@@ -84,9 +94,5 @@ public class Account implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
 
 }
